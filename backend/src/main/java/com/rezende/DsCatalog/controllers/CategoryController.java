@@ -7,6 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -25,5 +28,13 @@ public class CategoryController {
     public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
         Page<CategoryDTO> entity = service.findAll(pageable);
         return ResponseEntity.ok(entity);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto){
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }
