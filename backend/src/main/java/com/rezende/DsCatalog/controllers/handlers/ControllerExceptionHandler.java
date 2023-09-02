@@ -1,6 +1,7 @@
 package com.rezende.DsCatalog.controllers.handlers;
 
 import com.rezende.DsCatalog.dto.CustomError;
+import com.rezende.DsCatalog.service.exceptions.DataBaseException;
 import com.rezende.DsCatalog.service.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,12 @@ public class ControllerExceptionHandler {
             HttpStatus status = HttpStatus.NOT_FOUND;
             CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
             return ResponseEntity.status(status).body(err);
-        }
     }
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<CustomError> dataBaseException(DataBaseException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+}
