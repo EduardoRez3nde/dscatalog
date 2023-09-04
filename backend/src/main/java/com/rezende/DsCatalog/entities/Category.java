@@ -14,8 +14,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @ManyToMany(mappedBy = "categories")
-    private final Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
 
@@ -53,9 +55,6 @@ public class Category {
         return updatedAt;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
     @PrePersist
     public void prePersist(){
         createdAt = Instant.now();
@@ -64,6 +63,10 @@ public class Category {
     @PreUpdate
     public void preUpdate(){
         updatedAt = Instant.now();
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
