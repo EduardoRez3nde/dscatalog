@@ -27,15 +27,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable,
-        @RequestParam(value = "page", defaultValue = "0") Integer page,
-        @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-        @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-        @RequestParam(value = "orderBy", defaultValue = "name") String orderBy
-
-        ) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),orderBy);
-        Page<ProductDTO> entity = service.findAllPage(pageRequest);
+    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
+        Page<ProductDTO> entity = service.findAllPage(pageable);
         return ResponseEntity.ok(entity);
     }
 
