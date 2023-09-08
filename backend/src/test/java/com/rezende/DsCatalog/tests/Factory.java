@@ -8,7 +8,7 @@ public class Factory {
 
     public static Product createProduct() {
         Product product = new Product(1L, "Phone", "celular iphone", 4800.0, "www.apple.com");
-        product.getCategories().add(new Category(2L, "Eletronics"));
+        product.getCategories().add(createCategory());
         return product;
     }
 
@@ -16,5 +16,9 @@ public class Factory {
         Product product = createProduct();
         return new ProductDTO(product, product.getCategories());
 
+    }
+
+    public static Category createCategory() {
+        return new Category(2L, "Eletronics");
     }
 }
