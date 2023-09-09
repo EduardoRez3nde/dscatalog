@@ -62,7 +62,7 @@ public class ProductService {
             throw new ResourceNotFoundException("Impossivel atualizar. Id não encontrado!");
         }
     }
-    @Transactional(propagation = Propagation.SUPPORTS)
+
     public void delete(@PathVariable Long id){
         try{
             productRepository.deleteById(id);
