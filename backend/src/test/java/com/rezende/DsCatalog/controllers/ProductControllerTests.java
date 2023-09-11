@@ -1,16 +1,12 @@
 package com.rezende.DsCatalog.controllers;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rezende.DsCatalog.dto.ProductDTO;
+import com.rezende.DsCatalog.service.ProductService;
+import com.rezende.DsCatalog.service.UserService;
+import com.rezende.DsCatalog.service.exceptions.DataBaseException;
+import com.rezende.DsCatalog.service.exceptions.ResourceNotFoundException;
+import com.rezende.DsCatalog.tests.Factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -23,12 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rezende.DsCatalog.dto.ProductDTO;
-import com.rezende.DsCatalog.service.ProductService;
-import com.rezende.DsCatalog.service.exceptions.DataBaseException;
-import com.rezende.DsCatalog.service.exceptions.ResourceNotFoundException;
-import com.rezende.DsCatalog.tests.Factory;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest(ProductController.class)
@@ -61,7 +58,7 @@ class ProductControllerTests {
         productDTO = Factory.createProductDto();
         page = new PageImpl<>(List.of(productDTO));
 
-        Mockito.when(productService.findAllPage(ArgumentMatchers.any())).thenReturn(page);
+        Mockito.when(productService.findAllPage(any())).thenReturn(page);
         
         Mockito.when(productService.findById(existingId)).thenReturn(productDTO);
         Mockito.when(productService.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
