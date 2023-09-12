@@ -1,5 +1,8 @@
 package com.rezende.DsCatalog.dto;
 
+import com.rezende.DsCatalog.service.validation.UserInsertValid;
+
+@UserInsertValid
 public class UserInsertDTO extends UserDTO{
 
     private String password;
