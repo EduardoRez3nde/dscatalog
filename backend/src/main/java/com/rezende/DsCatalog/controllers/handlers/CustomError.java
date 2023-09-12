@@ -1,4 +1,4 @@
-package com.rezende.DsCatalog.dto;
+package com.rezende.DsCatalog.controllers.handlers;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -10,6 +10,8 @@ public class CustomError {
     private Integer status;
     private String error;
     private String path;
+
+    public CustomError(){}
 
     public CustomError(Instant moment, Integer status, String error, String path) {
         this.moment = moment;
