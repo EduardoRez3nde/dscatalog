@@ -3,6 +3,10 @@ package com.rezende.DsCatalog.dto;
 import com.rezende.DsCatalog.entities.Category;
 import com.rezende.DsCatalog.entities.Product;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -12,10 +16,20 @@ import java.util.Set;
 public class ProductDTO {
 
     private Long id;
+
+    @Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caratcteres")
+    @NotBlank(message = "Campo Requerido")
     private String name;
+
+    @NotBlank(message = "Campo Requerido")
     private String description;
+
+    @Positive(message = "O preço deve ser um valor positivo")
     private Double price;
+
     private String imgUrl;
+
+    @PastOrPresent(message = "A data não pode ser futura")
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
