@@ -3,10 +3,10 @@ package com.rezende.DsCatalog.dto;
 import com.rezende.DsCatalog.entities.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class UserDTO implements Serializable {
@@ -72,5 +72,18 @@ public class UserDTO implements Serializable {
 
     public Set<RoleDTO> getRoles() {
         return roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(id, userDTO.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

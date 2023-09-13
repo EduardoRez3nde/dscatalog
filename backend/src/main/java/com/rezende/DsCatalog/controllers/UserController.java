@@ -1,8 +1,8 @@
 package com.rezende.DsCatalog.controllers;
 
-import com.rezende.DsCatalog.dto.ProductDTO;
 import com.rezende.DsCatalog.dto.UserDTO;
 import com.rezende.DsCatalog.dto.UserInsertDTO;
+import com.rezende.DsCatalog.dto.UserUpdateDTO;
 import com.rezende.DsCatalog.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +42,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto){
-        dto = service.update(id, dto);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto){
+        UserDTO newDto = service.update(id, dto);
+        return ResponseEntity.ok(newDto);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -2,6 +2,7 @@ package com.rezende.DsCatalog.service;
 
 import com.rezende.DsCatalog.dto.UserDTO;
 import com.rezende.DsCatalog.dto.UserInsertDTO;
+import com.rezende.DsCatalog.dto.UserUpdateDTO;
 import com.rezende.DsCatalog.entities.Role;
 import com.rezende.DsCatalog.entities.User;
 import com.rezende.DsCatalog.respositories.RoleRepository;
@@ -54,7 +55,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto){
+    public UserDTO update(Long id, UserUpdateDTO dto){
         try {
             User entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
